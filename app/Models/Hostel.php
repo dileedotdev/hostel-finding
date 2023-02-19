@@ -92,7 +92,7 @@ class Hostel extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('default')
-            ->acceptsMimeTypes(['image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/svg+xml', 'image/webp'])
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
             ->withResponsiveImages()
         ;
     }

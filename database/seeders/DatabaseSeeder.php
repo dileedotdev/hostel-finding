@@ -61,31 +61,31 @@ class DatabaseSeeder extends Seeder
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake.webp')
+                    ->setFileName('fake.jpg')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake.webp')
+                    ->setFileName('fake.jpg')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake.webp')
+                    ->setFileName('fake.jpg')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake.webp')
+                    ->setFileName('fake.jpg')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake.webp')
+                    ->setFileName('fake.jpg')
                     ->toMediaCollection()
                 ;
             }
@@ -94,6 +94,6 @@ class DatabaseSeeder extends Seeder
 
     protected function getRandomHostelImagePath()
     {
-        return __DIR__.'/hostel-images/hostel-'.random_int(1, 18).'.webp';
+        return __DIR__.'/hostel-images/hostel-'.random_int(1, 18).'.jpg';
     }
 }

@@ -105,6 +105,7 @@ class HostelResource extends Resource
                     ])
                     ->localizeLabel(),
                 SpatieMediaLibraryFileUpload::make('default')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
                     ->label('Images')
                     ->multiple()
                     ->enableReordering()
