@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Hostel;
 
 use App\Models\Comment;
 use App\Models\Hostel;
-use Auth;
 use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\View\View;
@@ -38,7 +37,7 @@ class Comments extends Component
         ]);
         Comment::create([
             'content' => $this->reply,
-            'owner_id' => Auth::id(),
+            'owner_id' => \Auth::id(),
             'parent_id' => $id,
             'hostel_id' => $this->hostel->id,
         ]);

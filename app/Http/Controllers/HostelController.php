@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Hostel;
-use Auth;
 use Illuminate\View\View;
 
 class HostelController extends Controller
@@ -17,7 +16,7 @@ class HostelController extends Controller
             ->loadAggregate('votes', 'score', 'avg')
             ->loadCount('votes', 'comments', 'visitLogs')
         ;
-        $builder = $hostel->visitLog(Auth::user()); // @phpstan-ignore-line
+        $builder = $hostel->visitLog(\Auth::user()); // @phpstan-ignore-line
         $builder->byIp();
         $builder->byVisitor();
         $builder->interval(60 * 15);

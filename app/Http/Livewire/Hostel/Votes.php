@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Hostel;
 
 use App\Models\Hostel;
 use App\Models\Vote;
-use Auth;
 use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\View\View;
@@ -40,7 +39,7 @@ class Votes extends Component
         $this->hostel->votes()->create([
             'description' => $description,
             'score' => $score,
-            'owner_id' => Auth::id(),
+            'owner_id' => \Auth::id(),
         ]);
         Notification::make()
             ->success()

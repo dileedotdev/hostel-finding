@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Hostel;
-use Auth;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,8 +18,8 @@ class NotifyHostels extends Component
 
     public function mount(): void
     {
-        if (Hostel::where('owner_id', Auth::id())->exists()) {
-            $this->hostel = Hostel::where('owner_id', Auth::id())->first();
+        if (Hostel::where('owner_id', \Auth::id())->exists()) {
+            $this->hostel = Hostel::where('owner_id', \Auth::id())->first();
             $this->hostelId = $this->hostel->id;
         } else {
             $this->hostelId = 0;
@@ -41,7 +40,7 @@ class NotifyHostels extends Component
 
     public function render(): View
     {
-        $hostels = Hostel::where('owner_id', Auth::id())->get();
+        $hostels = Hostel::where('owner_id', \Auth::id())->get();
         $countNotifications = [];
         foreach ($hostels as $hostel) {
             $countNotifications[$hostel->id] = $hostel->subscribers()->wherePivot('active', false)->count();

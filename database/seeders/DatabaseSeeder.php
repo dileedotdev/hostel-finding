@@ -11,7 +11,6 @@ use App\Models\Category;
 use App\Models\Hostel;
 use App\Models\User;
 use App\Models\Vote;
-use Arr;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -58,7 +57,7 @@ class DatabaseSeeder extends Seeder
 
                 $hostel->subscribers()->attach(User::factory()->create());
 
-                $hostel->visitLog(Arr::random([null, $users->random()]))->log();
+                $hostel->visitLog(\Arr::random([null, $users->random()]))->log();
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()

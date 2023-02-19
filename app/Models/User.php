@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Cache;
 use Dinhdjj\Visit\Traits\Visitor;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -103,7 +102,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function describe(): array
     {
-        return Cache::remember('user-'.$this->getKey().'-describe', 0, function () {
+        return \Cache::remember('user-'.$this->getKey().'-describe', 0, function () {
             $votes = $this->hostelVotes()->get();
 
             $stars = [

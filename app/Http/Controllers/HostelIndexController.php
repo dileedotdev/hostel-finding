@@ -7,8 +7,6 @@ namespace App\Http\Controllers;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Hostel;
-use Cache;
-use Http;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,7 +19,7 @@ class HostelIndexController extends Controller
     public function __invoke(Request $request): View
     {
         $ip = $request->ip();
-        $location = Cache::rememberForever("location-ip-{$ip}", fn () => Http::get("http://ip-api.com/json/{$ip}")->throw()->json());
+        $location = \Cache::rememberForever("location-ip-{$ip}", fn () => \Http::get("http://ip-api.com/json/{$ip}")->throw()->json());
         $nearestHostels = new Collection();
 
         if ('fail' !== $location['status']) {

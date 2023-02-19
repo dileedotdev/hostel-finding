@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Hostel;
-use Auth;
-use Closure;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\BooleanColumn;
@@ -85,17 +83,17 @@ class ManageHostels extends Component implements HasTable
                 ->url(fn (Hostel $record): string => route('hostels.edit', $record))
                 ->icon('feathericon-edit')
                 ->openUrlInNewTab()
-                ->visible(fn (Hostel $record): bool => Auth::user()->can('update', $record)),
+                ->visible(fn (Hostel $record): bool => \Auth::user()->can('update', $record)),
             Action::make('found')
                 ->label('')
                 ->icon('feathericon-check')
                 ->action(function (Hostel $record): void {
                     $record->update(['found_at' => now()]);
                 })
-                ->visible(fn (Hostel $record): bool => Auth::user()->can('update', $record)),
+                ->visible(fn (Hostel $record): bool => \Auth::user()->can('update', $record)),
             DeleteAction::make('delete')
                 ->label('Xóa')
-                ->visible(fn (Hostel $record): bool => Auth::user()->can('delete', $record)),
+                ->visible(fn (Hostel $record): bool => \Auth::user()->can('delete', $record)),
         ];
     }
 
@@ -117,7 +115,7 @@ class ManageHostels extends Component implements HasTable
         ];
     }
 
-    protected function getTableRecordUrlUsing(): Closure
+    protected function getTableRecordUrlUsing(): \Closure
     {
         return fn (Hostel $record): string => route('hostels.show', ['hostel' => $record]);
     }

@@ -8,8 +8,6 @@ use Filament\Facades\Filament;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\ServiceProvider;
-use ReflectionClass;
-use Str;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -44,13 +42,13 @@ class FilamentServiceProvider extends ServiceProvider
             $this->label(function (?string $model = null, $column = null, ...$args): string {
                 /** @phpstan-ignore-next-line */
                 $name = $this->getName();
-                $model = new ReflectionClass($model ?? $column->getTable()->getModel());
-                $modelName = Str::lower($model->getShortName());
+                $model = new \ReflectionClass($model ?? $column->getTable()->getModel());
+                $modelName = \Str::lower($model->getShortName());
                 $key = 'models.'.$modelName.'.'.$name;
                 $trans = __($key);
 
                 if ($trans === $key) {
-                    $trans = Str::of($name)
+                    $trans = \Str::of($name)
                         ->beforeLast('.')
                         ->afterLast('.')
                         ->kebab()

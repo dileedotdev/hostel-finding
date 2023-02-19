@@ -11,7 +11,6 @@ use App\Filament\Resources\HostelResource\RelationManagers\VotesRelationManager;
 use App\Filament\Traits\Localizable;
 use App\Forms\Components\GoogleMapSelector;
 use App\Models\Hostel;
-use Closure;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\MultiSelect;
@@ -67,7 +66,7 @@ class HostelResource extends Resource
                 GoogleMapSelector::make('coordinates')
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn (array $state, Closure $set) => $set('address', $state['address']))
+                    ->afterStateUpdated(fn (array $state, \Closure $set) => $set('address', $state['address']))
                     ->columnSpan([
                         'default' => 1,
                         'lg' => 2,
