@@ -1,5 +1,5 @@
 @php
-$livewire ??= false;
+    $livewire ??= false;
 @endphp
 
 @if ($paginator->hasPages())

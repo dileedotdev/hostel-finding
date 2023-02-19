@@ -1,7 +1,7 @@
 @props(['hostel'])
 
 @php
-$url = route('hostels.show', [$hostel]);
+    $url = route('hostels.show', [$hostel]);
 @endphp
 
 <div

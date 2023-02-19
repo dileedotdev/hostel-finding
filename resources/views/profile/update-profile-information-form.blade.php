@@ -122,7 +122,7 @@
             />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) &&
-                !$this->user->hasVerifiedEmail())
+                    !$this->user->hasVerifiedEmail())
                 <p class="mt-2 text-sm">
                     {{ __('Your email address is unverified.') }}
 
