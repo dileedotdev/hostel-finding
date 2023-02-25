@@ -92,6 +92,7 @@ class Search extends Component
         $this->applyOrderToQuery($query);
 
         $hostels = $query
+            ->with('media')
             ->withCount('visitLogs')
             ->where('latitude', '>=', $this->south)
             ->where('latitude', '<=', $this->north)

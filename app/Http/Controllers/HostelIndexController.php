@@ -35,7 +35,7 @@ class HostelIndexController extends Controller
                 ->get()
             ;
         } else {
-            $nearestHostels = Hostel::with(['owner', 'categories'])
+            $nearestHostels = Hostel::with(['owner', 'categories', 'media'])
                 ->withAggregate('votes', 'score')
                 ->withCount('visitLogs')
                 ->orderBy('visit_logs_count', 'desc')
