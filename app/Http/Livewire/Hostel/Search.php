@@ -49,6 +49,8 @@ class Search extends Component
     {
         $this->largestPrice = Hostel::where('found_at', '>', now())->max('monthly_price') ?? 0;
         $this->smallestPrice = Hostel::where('found_at', '>', now())->min('monthly_price') ?? 0;
+
+        $this->showNearestHostels();
     }
 
     public function updateBounds(float $north, float $south, float $west, float $east): void
