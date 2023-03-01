@@ -41,6 +41,8 @@
     <!-- Styles -->
     @livewireStyles
     @stack('styles')
+
+    {!! GoogleReCaptchaV3::init() !!}
 </head>
 
 <body>
