@@ -114,6 +114,11 @@ return [
             'threshold' => 0,
             'score_comparison' => false,
         ],
+        [
+            'action' => 'livewire_hostel_subscribe_for_news',
+            'threshold' => 0.5,
+            'score_comparison' => true,
+        ],
     ],
 
     /*
