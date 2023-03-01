@@ -28,13 +28,29 @@ class Comments extends Component
         $this->hostel = $hostel;
     }
 
-    public function replyComment(int $id): void
+    public function replyComment(int $id, string $gRecaptchaResponse): void
     {
         $this->authorize('create', [Comment::class, $this->hostel]);
 
         $this->validate([
             'reply' => 'required|string',
         ]);
+
+        if (
+            ! \GoogleReCaptchaV3::setAction('livewire_hostel_comments')
+                ->verifyResponse($gRecaptchaResponse, \Request::ip())
+                ->isSuccess()
+        ) {
+            Notification::make()
+                ->warning()
+                ->title('Captcha không hợp lệ')
+                ->body('Vui lòng thử lại.')
+                ->send()
+            ;
+
+            return;
+        }
+
         Comment::create([
             'content' => $this->reply,
             'owner_id' => \Auth::id(),
@@ -45,10 +61,25 @@ class Comments extends Component
         $this->hostel->load('comments.children.owner');
     }
 
-    public function submit(): void
+    public function submit(string $gRecaptchaResponse): void
     {
         $this->validate();
         $this->authorize('create', [Comment::class, $this->hostel]);
+
+        if (
+            ! \GoogleReCaptchaV3::setAction('livewire_hostel_comments')
+                ->verifyResponse($gRecaptchaResponse, \Request::ip())
+                ->isSuccess()
+        ) {
+            Notification::make()
+                ->warning()
+                ->title('Captcha không hợp lệ')
+                ->body('Vui lòng thử lại.')
+                ->send()
+            ;
+
+            return;
+        }
 
         Comment::create([
             'content' => $this->content,

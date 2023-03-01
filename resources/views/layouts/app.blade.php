@@ -40,6 +40,7 @@
     <!-- Styles -->
     @livewireStyles
 
+    {!! GoogleReCaptchaV3::init() !!}
 </head>
 
 <body class="font-sans antialiased">

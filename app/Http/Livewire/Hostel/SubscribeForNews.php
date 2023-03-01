@@ -18,13 +18,28 @@ class SubscribeForNews extends Component
         $this->hostel = $hostel;
     }
 
-    public function subscribe(): void
+    public function subscribe(string $gRecaptchaResponse): void
     {
         if (! \Auth::check()) {
             Notification::make()
                 ->warning()
                 ->title('Yêu cầu đăng nhập')
                 ->body('Vui lòng đăng nhập để nhận tin.')
+                ->send()
+            ;
+
+            return;
+        }
+
+        if (
+            ! \GoogleReCaptchaV3::setAction('livewire_hostel_subscribe_for_news')
+                ->verifyResponse($gRecaptchaResponse, \Request::ip())
+                ->isSuccess()
+        ) {
+            Notification::make()
+                ->warning()
+                ->title('Captcha không hợp lệ')
+                ->body('Vui lòng thử lại.')
                 ->send()
             ;
 

@@ -158,8 +158,10 @@
                     score: 0,
                     description: null,
 
-                    submit() {
-                        this.$wire.submit(this.score, this.description)
+                    async submit() {
+                        const gRecaptchaResponse = await window.executeRecaptchaV3(
+                            'livewire_hostel_votes');
+                        this.$wire.submit(this.score, this.description, gRecaptchaResponse)
                     }
                 }))
             });
