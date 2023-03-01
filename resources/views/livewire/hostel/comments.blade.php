@@ -1,4 +1,4 @@
-<div>
+<div x-data="livewire_hostel_comments">
     <div class="divide-y divide-gray-200">
         <ul
             role="list"
@@ -38,7 +38,7 @@
                                         <div x-show="reply">
                                             <div class="mt-1">
                                                 <form
-                                                    wire:submit.prevent="replyComment({{ $comment->id }})"
+                                                    @submit.prevent="replyComment({{ $comment->id }})"
                                                     class="flex"
                                                 >
                                                     @csrf
@@ -124,7 +124,7 @@
                     >
                 </div>
                 <div class="min-w-0 flex-1">
-                    <form wire:submit.prevent="submit">
+                    <form @submit.prevent="submit">
                         <div>
                             <label
                                 for="comment"
@@ -161,3 +161,24 @@
         @endauth
     </div>
 </div>
+
+@push('scripts')
+    @once
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('livewire_hostel_comments', () => ({
+                    async submit() {
+                        const gRecaptchaResponse = await window.executeRecaptchaV3(
+                            'livewire_hostel_comments');
+                        this.$wire.submit(gRecaptchaResponse);
+                    },
+                    async replyComment(commentId) {
+                        const gRecaptchaResponse = await window.executeRecaptchaV3(
+                            'livewire_hostel_comments');
+                        this.$wire.replyComment(commentId, gRecaptchaResponse);
+                    }
+                }))
+            });
+        </script>
+    @endonce
+@endpush
