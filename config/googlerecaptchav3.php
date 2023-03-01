@@ -124,6 +124,11 @@ return [
             'threshold' => 0.5,
             'score_comparison' => true,
         ],
+        [
+            'action' => 'livewire_hostel_votes',
+            'threshold' => 0.5,
+            'score_comparison' => true,
+        ],
     ],
 
     /*

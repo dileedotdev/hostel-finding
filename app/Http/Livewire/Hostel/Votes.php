@@ -22,7 +22,7 @@ class Votes extends Component
         $this->hostel = $hostel;
     }
 
-    public function submit(float $score, ?string $description = null): void
+    public function submit(float $score, ?string $description, string $gRecaptchaResponse): void
     {
         $this->authorize('create', [Vote::class, $this->hostel]);
 
@@ -30,6 +30,21 @@ class Votes extends Component
             Notification::make()
                 ->warning()
                 ->title('Vui lòng chọn số sao')
+                ->send()
+            ;
+
+            return;
+        }
+
+        if (
+            ! \GoogleReCaptchaV3::setAction('livewire_hostel_votes')
+                ->verifyResponse($gRecaptchaResponse, \Request::ip())
+                ->isSuccess()
+        ) {
+            Notification::make()
+                ->warning()
+                ->title('Captcha không hợp lệ')
+                ->body('Vui lòng thử lại.')
                 ->send()
             ;
 
