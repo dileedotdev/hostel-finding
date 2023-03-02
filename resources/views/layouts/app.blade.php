@@ -12,6 +12,13 @@
         content="{{ csrf_token() }}"
     >
 
+    @env('local')
+    <meta
+        name="referrer"
+        content="no-referrer"
+    />
+    @endenv
+
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link
         rel="icon"
