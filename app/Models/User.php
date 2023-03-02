@@ -21,7 +21,9 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
+    use HasProfilePhoto {
+        getProfilePhotoUrlAttribute as _getProfilePhotoUrlAttribute;
+    }
     use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -38,6 +40,8 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'id_number',
         'phone_number',
+        'google_id',
+        'profile_photo_path',
     ];
 
     /**
@@ -126,5 +130,14 @@ class User extends Authenticatable implements FilamentUser
                 'stars' => $stars,
             ];
         });
+    }
+
+    public function getProfilePhotoUrlAttribute(): string
+    {
+        if (str_starts_with($this->profile_photo_path ?? '', 'http://') || str_starts_with($this->profile_photo_path ?? '', 'https://')) {
+            return $this->profile_photo_path;
+        }
+
+        return $this->_getProfilePhotoUrlAttribute();
     }
 }

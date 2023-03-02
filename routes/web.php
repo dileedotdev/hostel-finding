@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HostelController;
 use App\Http\Controllers\HostelIndexController;
 use App\Http\Controllers\HostelSearchController;
@@ -18,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('auth')->group(function (): void {
+    Route::get('google', [AuthController::class, 'redirectToGoogle'])
+        ->name('auth.google')
+    ;
+
+    Route::get('google/callback', [AuthController::class, 'handleGoogleCallback'])
+        ->name('auth.google.callback')
+    ;
+});
 
 Route::get('', HostelIndexController::class)
     ->name('hostels.index')
