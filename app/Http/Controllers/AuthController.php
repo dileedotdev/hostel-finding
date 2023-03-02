@@ -27,12 +27,21 @@ class AuthController extends Controller
 
         if (! $user) {
             /** @var User */
-            $user = User::create([
+            $user = User::forceCreate([
                 'name' => $googleUser->getName(),
                 'email' => $email,
                 'google_id' => $googleUser->getId(),
                 'profile_photo_path' => $googleUser->getAvatar(),
+                'email_verified_at' => now(),
             ]);
+        } else {
+            $user
+                ->forceFill([
+                    'google_id' => $googleUser->getId(),
+                    'profile_photo_path' => $googleUser->getAvatar(),
+                ])
+                ->save()
+            ;
         }
 
         auth()->login($user, true);
@@ -57,12 +66,21 @@ class AuthController extends Controller
 
         if (! $user) {
             /** @var User */
-            $user = User::create([
+            $user = User::forceCreate([
                 'name' => $facebookUser->getName(),
                 'email' => $email,
                 'facebook_id' => $facebookUser->getId(),
                 'profile_photo_path' => $facebookUser->getAvatar(),
+                'email_verified_at' => now(),
             ]);
+        } else {
+            $user
+                ->forceFill([
+                    'facebook_id' => $facebookUser->getId(),
+                    'profile_photo_path' => $facebookUser->getAvatar(),
+                ])
+                ->save()
+            ;
         }
 
         auth()->login($user, true);
