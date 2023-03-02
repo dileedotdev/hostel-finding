@@ -39,4 +39,34 @@ class AuthController extends Controller
 
         return redirect()->route('hostels.index');
     }
+
+    public function redirectToFacebook(): RedirectResponse
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback(): RedirectResponse
+    {
+        $facebookUser = Socialite::driver('facebook')->user();
+        $email = $facebookUser->getEmail();
+
+        /** @var ?User */
+        $user = User::whereFacebookId($facebookUser->getId())->first() ?? $email
+            ? User::whereEmail($facebookUser->getEmail())->first()
+            : null;
+
+        if (! $user) {
+            /** @var User */
+            $user = User::create([
+                'name' => $facebookUser->getName(),
+                'email' => $email,
+                'facebook_id' => $facebookUser->getId(),
+                'profile_photo_path' => $facebookUser->getAvatar(),
+            ]);
+        }
+
+        auth()->login($user, true);
+
+        return redirect()->route('hostels.index');
+    }
 }

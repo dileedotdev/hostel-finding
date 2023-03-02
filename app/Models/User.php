@@ -42,6 +42,7 @@ class User extends Authenticatable implements FilamentUser
         'phone_number',
         'google_id',
         'profile_photo_path',
+        'facebook_id',
     ];
 
     /**

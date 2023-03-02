@@ -28,6 +28,14 @@ Route::prefix('auth')->group(function (): void {
     Route::get('google/callback', [AuthController::class, 'handleGoogleCallback'])
         ->name('auth.google.callback')
     ;
+
+    Route::get('facebook', [AuthController::class, 'redirectToFacebook'])
+        ->name('auth.facebook')
+    ;
+
+    Route::get('facebook/callback', [AuthController::class, 'handleFacebookCallback'])
+        ->name('auth.facebook.callback')
+    ;
 });
 
 Route::get('', HostelIndexController::class)
