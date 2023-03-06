@@ -129,6 +129,11 @@ return [
             'threshold' => 0.5,
             'score_comparison' => true,
         ],
+        [
+            'action' => 'provide_phone_number',
+            'threshold' => 0.5,
+            'score_comparison' => true,
+        ],
     ],
 
     /*

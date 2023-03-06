@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Hostel;
 
 use App\Models\Hostel;
+use App\Traits\RequiresPhoneNumber;
 use Filament\Notifications\Notification;
 use Illuminate\View\View;
 use Livewire\Component;
 
 class SubscribeForNews extends Component
 {
+    use RequiresPhoneNumber;
+
     public Hostel $hostel;
 
     public function mount(Hostel $hostel): void
@@ -49,6 +52,8 @@ class SubscribeForNews extends Component
         if (\Auth::user()->can('subscribe', [$this->hostel])) {
             $this->hostel->subscribers()->attach(\Auth::id());
         }
+
+        $this->ensurePhoneNumberIsProvided();
 
         Notification::make()
             ->success()
