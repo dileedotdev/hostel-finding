@@ -10,7 +10,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function redirectToGoogle(): RedirectResponse
+    public function redirectToGoogle(): mixed
     {
         return Socialite::driver('google')->redirect();
     }
@@ -49,7 +49,7 @@ class AuthController extends Controller
         return redirect()->route('hostels.index');
     }
 
-    public function redirectToFacebook(): RedirectResponse
+    public function redirectToFacebook(): mixed
     {
         return Socialite::driver('facebook')->redirect();
     }

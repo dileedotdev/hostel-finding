@@ -21,6 +21,7 @@ trait RequiresPhoneNumber
 
     public function startRequirePhoneNumber(): bool
     {
+        // @phpstan-ignore-next-line
         $this->isProvidingPhoneNumber = ! \Auth::user()->phone_number;
 
         return ! $this->isProvidingPhoneNumber;
@@ -67,6 +68,7 @@ trait RequiresPhoneNumber
 
     public function ensurePhoneNumberIsProvided(): void
     {
+        // @phpstan-ignore-next-line
         if (! \Auth::user()->phone_number) {
             abort(403, 'You must provide a phone number to continue.');
         }
