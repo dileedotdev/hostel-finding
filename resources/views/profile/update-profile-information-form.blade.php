@@ -164,25 +164,6 @@
                 class="mt-2"
             />
         </div>
-
-        <!-- Phone Number -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label
-                for="id_number"
-                value="Số điện thoại"
-            />
-            <x-jet-input
-                id="id_number"
-                type="text"
-                class="mt-1 block w-full"
-                wire:model.defer="state.id_number"
-                autocomplete="id_number"
-            />
-            <x-jet-input-error
-                for="id_number"
-                class="mt-2"
-            />
-        </div>
     </x-slot>
 
     <x-slot name="actions">

@@ -55,22 +55,6 @@
                     type="text"
                     name="phone_number"
                     :value="old('phone_number')"
-                    required
-                />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label
-                    for="id_number"
-                    value="CMND/CCCD"
-                />
-                <x-jet-input
-                    id="id_number"
-                    class="mt-1 block w-full"
-                    type="text"
-                    name="id_number"
-                    :value="old('id_number')"
-                    required
                 />
             </div>
 

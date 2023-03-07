@@ -7,6 +7,7 @@ namespace App\Providers;
 use Filament\Facades\Filament;
 use Filament\Support\Components\ViewComponent;
 use Illuminate\Foundation\Vite;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentServiceProvider extends ServiceProvider
@@ -35,6 +36,12 @@ class FilamentServiceProvider extends ServiceProvider
             Filament::registerScripts([
                 app(Vite::class)('resources/js/filament-admin.js'),
             ], shouldBeLoadedBeforeCoreScripts: true);
+
+            if ($this->app->environment('local')) {
+                Filament::pushMeta([
+                    new HtmlString('<meta name="referrer" content="no-referrer" />'),
+                ]);
+            }
         });
 
         ViewComponent::macro('localizeLabel', function () {

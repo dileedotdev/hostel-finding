@@ -46,5 +46,12 @@
     "Already registered?": "Đã đăng ký?",
     "Register": "Đăng ký",
     "Please confirm access to your account by entering the authentication code provided by your authenticator application.": "Vui lòng xác nhận quyền truy cập vào tài khoản của bạn bằng cách nhập mã xác thực được cung cấp bởi ứng dụng xác thực của bạn.",
-    "Use a recovery code": "Sử dụng mã khắc phục"
+    "Use a recovery code": "Sử dụng mã khắc phục",
+    "Or continue with": "Hoặc tiếp tục với",
+    "This function is not available!": "Chức năng này không khả dụng!",
+    "Because you logged in with your social account, you should logout and try reset password with your email!": "Vì bạn đã đăng nhập bằng tài khoản mạng xã hội của bạn, bạn nên đăng xuất và thử đặt lại mật khẩu bằng email của bạn!",
+    "This function is only available for users logged in with a password.": "Chức năng này chỉ có sẵn cho người dùng đăng nhập bằng mật khẩu.",
+    "Provide Phone Number": "Cung Cấp Số Điện Thoại",
+    "This feature requires a phone number. Please provide one to continue.": "Tính năng này yêu cầu một số điện thoại. Vui lòng cung cấp một số để tiếp tục.",
+    "Phone Number": "Số điện thoại"
 }

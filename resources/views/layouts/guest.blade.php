@@ -12,6 +12,13 @@
         content="{{ csrf_token() }}"
     >
 
+    @env('local')
+    <meta
+        name="referrer"
+        content="no-referrer"
+    />
+    @endenv
+
     {{ $head ?? null }}
     <link
         rel="icon"
