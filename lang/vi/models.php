@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     'vote' => 'đánh giá',
-    'votes' => 'những đánh giá',
+    'votes' => 'đánh giá',
     'vote.id' => 'ID',
     'vote.score' => 'điểm',
     'vote.description' => 'mô tả',
@@ -16,7 +16,7 @@ return [
     'vote.hostel.title' => 'tên nhà trọ',
 
     'visit' => 'lượt truy cập',
-    'visits' => 'những lượt truy cập',
+    'visits' => 'lượt truy cập',
     'visit.id' => 'ID',
     'visit.created_at' => 'tạo lúc',
     'visit.updated_at' => 'cập nhật lúc',
@@ -29,7 +29,7 @@ return [
     'visit.visitor.email' => 'e-mail người truy cập',
 
     'user' => 'người dùng',
-    'users' => 'những người dùng',
+    'users' => 'người dùng',
     'user.id' => 'ID',
     'user.created_at' => 'tạo lúc',
     'user.updated_at' => 'cập nhật lúc',
@@ -45,7 +45,7 @@ return [
     'user.id_number' => 'cmnd/cccd',
 
     'role' => 'vai trò',
-    'roles' => 'những vai trò',
+    'roles' => 'vai trò',
     'role.id' => 'ID',
     'role.created_at' => 'tạo lúc',
     'role.updated_at' => 'cập nhật lúc',
@@ -54,7 +54,7 @@ return [
     'role.permissions' => 'các quyền',
 
     'permission' => 'quyền hạn',
-    'permissions' => 'những quyền hạn',
+    'permissions' => 'quyền hạn',
     'permission.id' => 'ID',
     'permission.created_at' => 'tạo lúc',
     'permission.updated_at' => 'cập nhật lúc',
@@ -62,7 +62,7 @@ return [
     'permission.guard_name' => 'tên cổng bảo vệ',
 
     'hostel' => 'nhà trọ',
-    'hostels' => 'những nhà trọ',
+    'hostels' => 'nhà trọ',
     'hostel.id' => 'ID',
     'hostel.created_at' => 'tạo lúc',
     'hostel.updated_at' => 'cập nhật lúc',
@@ -89,7 +89,7 @@ return [
     'subscribers.phone_number' => 'Số điện thoại',
 
     'comment' => 'bình luận',
-    'comments' => 'những bình luận',
+    'comments' => 'bình luận',
     'comment.id' => 'ID',
     'comment.created_at' => 'tạo lúc',
     'comment.updated_at' => 'cập nhật lúc',
@@ -99,7 +99,7 @@ return [
     'comment.hostel_id' => 'nhà trọ',
 
     'category' => 'danh mục',
-    'categories' => 'những danh mục',
+    'categories' => 'danh mục',
     'category.id' => 'ID',
     'category.created_at' => 'tạo lúc',
     'category.updated_at' => 'cập nhật lúc',
@@ -107,7 +107,7 @@ return [
     'category.description' => 'mô tả',
 
     'amenity' => 'tiện ích',
-    'amenities' => 'những tiện ích',
+    'amenities' => 'tiện ích',
     'amenity.id' => 'ID',
     'amenity.created_at' => 'tạo lúc',
     'amenity.updated_at' => 'cập nhật lúc',
