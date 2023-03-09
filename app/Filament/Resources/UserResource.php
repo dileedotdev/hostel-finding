@@ -105,8 +105,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->localizeLabel(),
                 BooleanColumn::make('email_verified_at')
-                    ->label('Email verified')
-                    ->localizeLabel(),
+                    ->label(__('Email verified')),
                 TextColumn::make('updated_at')
                     ->getStateUsing(fn (User $record) => $record->updated_at->diffForHumans())
                     ->localizeLabel(),
