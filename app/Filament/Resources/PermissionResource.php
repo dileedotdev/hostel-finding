@@ -57,8 +57,6 @@ class PermissionResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->localizeLabel(),
-                TextColumn::make('guard_name')
-                    ->localizeLabel(),
                 TextColumn::make('updated_at')
                     ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans())
                     ->localizeLabel(),

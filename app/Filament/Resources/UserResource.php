@@ -101,9 +101,6 @@ class UserResource extends Resource
                 TextColumn::make('phone_number')
                     ->searchable()
                     ->localizeLabel(),
-                TextColumn::make('id_number')
-                    ->searchable()
-                    ->localizeLabel(),
                 BooleanColumn::make('email_verified_at')
                     ->label(__('Email verified')),
                 TextColumn::make('updated_at')
