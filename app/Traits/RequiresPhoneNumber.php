@@ -12,15 +12,19 @@ trait RequiresPhoneNumber
 
     public bool $isProvidingPhoneNumber = false;
 
-    public function mountRequiresPhoneNumber(): void
-    {
-        if (! \Auth::check()) {
-            abort(401, 'You must be logged in to continue.');
-        }
-    }
-
     public function startRequirePhoneNumber(): bool
     {
+        if (! \Auth::check()) {
+            Notification::make()
+                ->warning()
+                ->title('Yêu cầu đăng nhập')
+                ->body('Vui lòng đăng nhập để sử dụng tính năng này.')
+                ->send()
+            ;
+
+            return false;
+        }
+
         // @phpstan-ignore-next-line
         $this->isProvidingPhoneNumber = ! \Auth::user()->phone_number;
 
@@ -30,7 +34,14 @@ trait RequiresPhoneNumber
     public function providePhoneNumber(string $gRecaptchaResponse): bool
     {
         if (! \Auth::check()) {
-            abort(401, 'You must be logged in to continue.');
+            Notification::make()
+                ->warning()
+                ->title('Yêu cầu đăng nhập')
+                ->body('Vui lòng đăng nhập để sử dụng tính năng này.')
+                ->send()
+            ;
+
+            return false;
         }
 
         if (
