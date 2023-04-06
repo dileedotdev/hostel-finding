@@ -12,9 +12,9 @@ cmds = [
 
 [start]
 cmd = """
-    sudo chown -R $USER:$USER storage vendor bootstrap public
-    && sudo chmod -R 777 storage vendor bootstrap public
-    && sudo chmod -R 777 bootstrap/cache/
-    && perl /assets/prestart.pl /assets/nginx.template.conf /nginx.conf
+    sudo chown -R $USER:$USER storage vendor bootstrap public \
+    && sudo chmod -R 777 storage vendor bootstrap public \
+    && sudo chmod -R 777 bootstrap/cache/ \
+    && perl /assets/prestart.pl /assets/nginx.template.conf /nginx.conf \
     && (php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)
 """
