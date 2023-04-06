@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b4c457520dc39c5c049124dfb0fed1d",
+    "content-hash": "f41a8becf7f8f29aebe48279351fd187",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1012,16 +1012,16 @@
         },
         {
             "name": "dinhdjj/visit",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dinhdjj/laravel-visit.git",
-                "reference": "4efa49fa22166918dc61c3dce240d53ec14b9775"
+                "url": "https://github.com/PotensD/laravel-visit.git",
+                "reference": "04084fe6a29ccf325dbed84add194a496084709f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dinhdjj/laravel-visit/zipball/4efa49fa22166918dc61c3dce240d53ec14b9775",
-                "reference": "4efa49fa22166918dc61c3dce240d53ec14b9775",
+                "url": "https://api.github.com/repos/PotensD/laravel-visit/zipball/04084fe6a29ccf325dbed84add194a496084709f",
+                "reference": "04084fe6a29ccf325dbed84add194a496084709f",
                 "shasum": ""
             },
             "require": {
@@ -1079,10 +1079,10 @@
                 "visitor"
             ],
             "support": {
-                "issues": "https://github.com/dinhdjj/laravel-visit/issues",
-                "source": "https://github.com/dinhdjj/laravel-visit/tree/v1.1.0"
+                "issues": "https://github.com/PotensD/laravel-visit/issues",
+                "source": "https://github.com/PotensD/laravel-visit/tree/v1.1.1"
             },
-            "time": "2022-08-18T14:34:01+00:00"
+            "time": "2023-04-06T10:33:10+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -12609,7 +12609,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "~8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
