@@ -1,7 +1,19 @@
+[phases.setup]
+cmds = [
+    "...",
+    "sudo chown -R $USER:$USER storage bootstrap public",
+    "sudo chmod -R 777 storage bootstrap public",
+    "sudo chmod -R 777 bootstrap/cache/",
+]
+
 [phases.build]
 cmds = [
     "...",
-    "php artisan optimize",
-    "php artisan storage:link",
     "php artisan migrate --force",
+    "php artisan config:cache",
+    "php artisan cache:clear",
+    "php artisan event:cache",
+    "php artisan route:cache",
+    "php artisan view:cache",
+    "php artisan storage:link",
 ]
