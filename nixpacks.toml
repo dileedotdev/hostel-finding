@@ -2,7 +2,6 @@
 cmds = [
     "sudo chown -R $USER:$USER storage bootstrap public",
     "sudo chmod -R 777 storage bootstrap public",
-    "sudo chmod -R 777 bootstrap/cache/*",
     "...",
 ]
 
