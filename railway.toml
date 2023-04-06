@@ -8,4 +8,4 @@ restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
 
 [environments.demo.build]
-buildCommand = "php artisan storage:link && php artisan optimize && php artisan migrate:fresh --seed --force"
+buildCommand = "npm run build && php artisan storage:link && php artisan optimize && php artisan migrate:fresh --seed --force"
