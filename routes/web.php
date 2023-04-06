@@ -20,6 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/health', function () {
+    \App\Models\User::first();
+
+    return response()->json([
+        'status' => 'ok',
+    ]);
+});
+
 Route::prefix('auth')->group(function (): void {
     Route::get('google', [AuthController::class, 'redirectToGoogle'])
         ->name('auth.google')
