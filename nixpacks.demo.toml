@@ -5,7 +5,7 @@ cmds = [
     "sudo chown -R $USER:$USER storage vendor bootstrap public",
     "sudo chmod -R 777 storage vendor bootstrap public",
     "sudo chmod -R 777 bootstrap/cache/",
-    "php artisan migrate --force",
+    "php artisan migrate:fresh --seed --force",
     "php artisan config:cache",
     "php artisan cache:clear",
     "php artisan event:cache",
