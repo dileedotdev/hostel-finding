@@ -1,7 +1,7 @@
 [phases.build]
 cmds = [
     "...",
-    "mkdir -p bootstrap/cache",
+    "mkdir -p ./app/bootstrap/cache",
     "sudo chown -R $USER:$USER storage vendor bootstrap public",
     "sudo chmod -R 777 storage vendor bootstrap public",
     "sudo chmod -R 777 bootstrap/cache/",
