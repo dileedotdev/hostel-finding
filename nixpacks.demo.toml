@@ -11,4 +11,10 @@ cmds = [
 ]
 
 [start]
-cmd = "pwd && sudo chown -R $USER:$USER storage vendor bootstrap public && sudo chmod -R 777 storage vendor bootstrap public && sudo chmod -R 777 bootstrap/cache/ &&{nginx_start_serving_cmd}"
+cmd = """
+    sudo chown -R $USER:$USER storage vendor bootstrap public
+    && sudo chmod -R 777 storage vendor bootstrap public
+    && sudo chmod -R 777 bootstrap/cache/
+    && perl /assets/prestart.pl /assets/nginx.template.conf /nginx.conf
+    && (php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)
+"""
