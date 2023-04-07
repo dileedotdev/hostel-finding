@@ -1,13 +1,13 @@
 [phases.build]
 cmds = [
     "...",
-    "mkdir -p ./app/bootstrap/cache",
-    "sudo chown -R $USER:$USER storage vendor bootstrap public",
-    "sudo chmod -R 777 storage vendor bootstrap public",
-    "sudo chmod -R 777 bootstrap/cache/",
     "php artisan migrate:fresh --seed --force",
     "php artisan config:cache",
-    "php artisan optimize:clear",
+    "php artisan cache:clear",
+    "php artisan event:cache",
+    "php artisan route:cache",
+    "php artisan view:cache",
+    "php artisan storage:link",
 ]
 
 [start]
