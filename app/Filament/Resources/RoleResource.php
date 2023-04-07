@@ -39,10 +39,6 @@ class RoleResource extends Resource
                     ->required()
                     ->maxLength(125)
                     ->localizeLabel(),
-                TextInput::make('guard_name')
-                    ->required()
-                    ->maxLength(125)
-                    ->localizeLabel(),
                 CheckboxList::make('permissions')
                     ->relationship('permissions', 'name')
                     ->localizeLabel(),
@@ -61,8 +57,6 @@ class RoleResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->localizeLabel(),
-                TextColumn::make('guard_name')
                     ->localizeLabel(),
                 TextColumn::make('updated_at')
                     ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans())
