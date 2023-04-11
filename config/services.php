@@ -43,4 +43,8 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
+
+    'ga4' => [
+        'client_id' => env('GA4_CLIENT_ID'),
+    ],
 ];

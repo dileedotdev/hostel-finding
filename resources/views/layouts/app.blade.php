@@ -2,6 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <x-ga4 />
+
     <meta charset="utf-8">
     <meta
         name="viewport"
