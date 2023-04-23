@@ -222,14 +222,43 @@
                             lat = results[0].geometry.location.lat();
                             lng = results[0].geometry.location.lng();
                         } catch (e) {
-                            const {
-                                data
-                            } = await window.axios.get('http://ip-api.com/json');
-                            lat = data.lat;
-                            lng = data.lon;
-                            address = data.regionName;
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(async (position) => {
+                                    try {
+                                        lat = position.coords.latitude;
+                                        lng = position.coords.longitude;
+
+                                        const {
+                                            results
+                                        } = await this.geocoder.geocode({
+                                            location: {
+                                                lat,
+                                                lng
+                                            }
+                                        });
+
+                                        address = results[0].formatted_address;
+                                    } catch (e) {
+                                        console.log(e);
+                                    }
+
+                                    if (!lat || !lng) {
+                                        address = 'Tp. Hồ Chí Minh'
+                                        lat = 10.8230989;
+                                        lng = 106.6296638;
+                                    }
+
+                                    this.search(lat, lng, address);
+                                }, () => {
+                                    this.search(10.8230989, 106.6296638,
+                                        'Tp. Hồ Chí Minh');
+                                });
+                            }
                         }
                     }
+
+
+                    if (!lat || !lng) return
 
                     const north = lat + 0.015;
                     const south = lat - 0.015;

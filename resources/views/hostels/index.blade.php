@@ -15,9 +15,9 @@
         <div class="no-scrollbar overflow-auto">
             <div class="flex min-w-max gap-2">
                 @foreach ($trendingCategories as $category)
-                    <button class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
+                    <span class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
                         {{ $category->name }}
-                    </button>
+                    </span>
                 @endforeach
             </div>
         </div>
@@ -25,33 +25,33 @@
         <div class="no-scrollbar mt-4 overflow-auto">
             <div class="flex min-w-max gap-2">
                 @foreach ($trendingAmenities as $amenity)
-                    <button class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
+                    <span class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
                         {{ $amenity->name }}
-                    </button>
+                    </span>
                 @endforeach
             </div>
         </div>
 
         <h2 class="mt-6 mb-4 text-2xl font-semibold tracking-tight text-gray-700 sm:text-3xl sm:tracking-tight">
-            Nhà trọ gần bạn
+            Nhà trọ nổi bật
         </h2>
 
         <div class="grid gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($nearestHostels as $hostel)
+            @foreach ($outstandingHostels as $hostel)
                 <x-hostel.card :hostel="$hostel" />
             @endforeach
         </div>
 
         <div
             x-data
-            class="mt-6 flex justify-center"
+            class="mt-10 flex justify-center"
         >
             {{-- See more action --}}
             <button
                 class="rounded-full bg-white px-8 py-4 font-bold text-primary-600 shadow"
                 @click="document.getElementById('header-search-button')?.click()"
             >
-                Xem thêm
+                Tìm các nhà trọ gần bạn
             </button>
         </div>
     </x-container>
