@@ -4,7 +4,7 @@
         {{-- social-medias --}}
         <div class="flex justify-center space-x-6 md:order-2">
             <a
-                href="https://github.com/dinhdjj/hostel-finding"
+                href="https://github.com/dileedotdev/hostel-finding"
                 class="text-gray-100 hover:text-gray-500"
                 target="_blank"
             >
@@ -27,18 +27,22 @@
         {{-- description --}}
         <div class="mt-8 md:order-1 md:mt-0">
             <p class="text-center text-base text-gray-100">
-                &copy; 2022 OU-IT made by
+                &copy; 2023 OU-IT made by
                 <a
                     class="font-bold"
-                    href="https://github.com/dinhdjj"
+                    href="https://github.com/dileedotdev"
                     target="_blank"
-                >dinhdjj</a>
+                >
+                    Dilee
+                </a>
                 &
                 <a
                     class="font-bold"
                     href="https://github.com/hunghhihi"
                     target="_blank"
-                >hunghhihi</a>
+                >
+                    Hunghhihi
+                </a>
             </p>
         </div>
     </div>
