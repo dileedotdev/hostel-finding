@@ -23,7 +23,7 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -138,8 +138,13 @@ class MyHostelResource extends Resource
                 TextColumn::make('title')
                     ->searchable()
                     ->localizeLabel(),
-                BooleanColumn::make('found')
-                    ->getStateUsing(fn (Model $record) => $record->found_at->lte(now()))
+                BadgeColumn::make('status')
+                    ->getStateUsing(
+                        fn (Model $record) => $record->found_at->lte(now())
+                            ? 'Đã tìm thấy người thuê'
+                            : 'Đang tìm người thuê'
+                    )
+                    ->color(fn (Model $record) => $record->found_at->lte(now()) ? 'success' : 'warning')
                     ->localizeLabel(),
                 TextColumn::make('address')
                     ->searchable()
