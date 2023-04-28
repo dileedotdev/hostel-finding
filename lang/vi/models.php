@@ -80,6 +80,7 @@ return [
     'hostel.amenities' => 'các tiện nghi',
     'hostel.default' => 'các ảnh',
     'hostel.votes_score' => 'đánh giá',
+    'hostel.votes_avg_score' => 'đánh giá trung bình',
     'hostel.allowable_number_of_people' => 'số người ở tối đa',
     'hostel.owner_id' => 'người sở hữu',
 

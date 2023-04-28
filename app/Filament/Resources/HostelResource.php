@@ -26,6 +26,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -138,12 +139,13 @@ class HostelResource extends Resource
                     )
                     ->color(fn (Model $record) => $record->found_at->lte(now()) ? 'success' : 'warning')
                     ->localizeLabel(),
+                TextColumn::make('votes_avg_score')
+                    ->avg('votes', 'score')
+                    ->sortable()
+                    ->getStateUsing(fn (Hostel $record) => ceil($record->votes_avg_score * 5).' ✯')
+                    ->localizeLabel(),
                 TextColumn::make('address')
                     ->searchable()
-                    ->localizeLabel(),
-                TextColumn::make('votes_score')
-                    ->avg('votes', 'score')
-                    ->getStateUsing(fn (Hostel $record) => ceil($record->votes_avg_score * 5).' ✯')
                     ->localizeLabel(),
                 TextColumn::make('size')
                     ->getStateUsing(fn (Model $record) => $record->size.' m²')
@@ -161,12 +163,21 @@ class HostelResource extends Resource
             ])
             ->filters([
                 TernaryFilter::make('Founded')
+                    ->label('Đã tìm thấy người thuê')
                     ->nullable()
-                    ->column('found_at')
+                    ->attribute('found_at')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->where('found_at', '<=', now()),
                         false: fn (Builder $query): Builder => $query->where('found_at', '>', now()),
                     ),
+                SelectFilter::make('created_in')
+                    ->label('Được đăng trong')
+                    ->options([
+                        7 => '7 ngày qua',
+                        30 => '30 ngày qua',
+                        90 => '90 ngày qua',
+                    ])
+                    ->query(fn (Builder $query, $data) => $data['value'] && $query->where('created_at', '>=', now()->subDays($data['value']))),
             ])
             ->actions([
                 Action::make('activate')
