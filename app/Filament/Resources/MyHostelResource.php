@@ -151,7 +151,7 @@ class MyHostelResource extends Resource
                     ->localizeLabel(),
                 TextColumn::make('votes_score')
                     ->avg('votes', 'score')
-                    ->getStateUsing(fn (Hostel $record) => ceil($record->votes_score * 5).' ✯')
+                    ->getStateUsing(fn (Hostel $record) => ceil($record->votes_avg_score * 5).' ✯')
                     ->localizeLabel(),
                 TextColumn::make('size')
                     ->getStateUsing(fn (Model $record) => $record->size.' m²')
