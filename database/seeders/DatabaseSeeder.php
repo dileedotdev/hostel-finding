@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Hostel;
 use App\Models\User;
 use App\Models\Vote;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -41,11 +42,20 @@ class DatabaseSeeder extends Seeder
         $amenities = Amenity::factory(10)->create();
         $categories = Category::factory(10)->create();
 
+        // read json from ./hostels.json
+        $hostelData = \File::get(__DIR__.'/hostel_data.json');
+        $hostelData = json_decode($hostelData, true);
+        $hostelData = new Sequence(...$hostelData);
+
         foreach ($users as $user) {
             /** @var User $user */
-            $hostels = Hostel::factory(10)->hasComments(2)->create([
-                'owner_id' => $user->id,
-            ]);
+            $hostels = Hostel::factory(10)
+                ->hasComments(2)
+                ->state($hostelData)
+                ->create([
+                    'owner_id' => $user->id,
+                ])
+            ;
 
             foreach ($hostels as $hostel) {
                 /** @var Hostel $hostel */
