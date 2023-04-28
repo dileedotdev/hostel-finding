@@ -11,7 +11,7 @@ return [
     'user.count.*.no_hostel' => 'Số lượng người dùng',
     'user.count.*.has_hostel' => 'Số lượng chủ phòng',
     'hostel.count.*' => 'Số lượng phòng trọ',
-    'hostel.count.*.found' => 'Số lượng phòng trọ đã tìm thấy',
+    'hostel.count.*.found' => 'Số lượng phòng trọ đã tìm thấy người thuê',
     'hostel.average.price' => 'Giá trung bình phòng trọ',
     'comment.count.*' => 'Số lượng bình luận',
 ];

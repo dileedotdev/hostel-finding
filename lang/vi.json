@@ -1,5 +1,8 @@
 {
     "found": "tìm thấy",
+    "status": "trạng thái",
+    ":percentage% increase": ":percentage% tăng",
+    ":percentage% decrease": ":percentage% giảm",
     "Profile Information": "Thông tin cá nhân",
     "Update your account's profile information and email address.": "Cập nhật thông tin cá nhân và địa chỉ email của tài khoản của bạn.",
     "Update Password": "Cập nhật mật khẩu",
