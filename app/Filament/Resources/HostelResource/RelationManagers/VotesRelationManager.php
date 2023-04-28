@@ -45,12 +45,16 @@ class VotesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('owner.name'),
+                TextColumn::make('owner.name')
+                    ->localizeLabel(),
                 TextColumn::make('score')
-                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯'),
-                TextColumn::make('description'),
+                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯')
+                    ->localizeLabel(),
+                TextColumn::make('description')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->localizeLabel(),
             ])
             ->filters([
             ])
