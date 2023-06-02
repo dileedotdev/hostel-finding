@@ -4,7 +4,7 @@
 >
 
     @php
-        $height = 'min-h-[700px]';
+        $height = 'h-[700px]';
     @endphp
     <div
         x-show="open"
@@ -18,101 +18,130 @@
         class="{{ $height }} mb-6 w-[360px] max-w-[calc(100vw-36px)] origin-bottom-right rounded-md border border-slate-200 bg-slate-50 shadow"
     >
         @if (Auth::check())
-            <div class="{{ $height }} flex flex-1 flex-col">
+            @if ($room)
+                <div class="{{ $height }} flex flex-1 flex-col">
 
-                <div class="p-2">
-                    <ul class="flex items-end gap-2 overflow-auto">
-                        {{-- foreach 10 times --}}
-                        @foreach (range(0, 4) as $i)
-                            <li>
-                                <button
-                                    type="button"
-                                    class="flex w-14 flex-col items-center"
-                                >
-                                    <div class="relative">
-                                        <img
-                                            src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
-                                            alt="{{ Auth::user()->name }}"
-                                            class="h-10 w-10 rounded-full"
-                                        />
+                    <div class="p-2">
+                        <ul class="flex items-end gap-2 overflow-auto">
+                            @foreach ($rooms as $roomItem)
+                                @php
+                                    $user = $roomItem->user1_id == Auth::id() ? $roomItem->user2 : $roomItem->user1;
+                                @endphp
+                                <li>
+                                    <button
+                                        type="button"
+                                        class="flex w-14 flex-col items-center"
+                                        @click="updateRoomId({{ $roomItem->id }})"
+                                    >
+                                        <div class="relative">
+                                            <img
+                                                src="{{ $user->profile_photo_url }}"
+                                                alt="{{ $user->name }}"
+                                                class="h-10 w-10 rounded-full"
+                                            />
 
-                                        <div class="absolute bottom-[3px] right-0 h-2 w-2 rounded-full bg-red-600">
+                                            <div @class([
+                                                'absolute bottom-[3px] right-0 h-2 w-2 rounded-full' => true,
+                                                'bg-green-600' => $user->last_visited_at?->gte(now()->subMinutes(5)),
+                                                'bg-red-600' => !$user->last_visited_at?->gte(now()->subMinutes(5)),
+                                            ])>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <span class="text-sm text-slate-600 line-clamp-2">
-                                        Minh la moi nguoi dep
+                                        <span class="text-sm text-slate-600 line-clamp-2">
+                                            {{ $user->name }}
+                                        </span>
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    @php
+                        $chatPartner = $room->user1_id == Auth::id() ? $room->user2 : $room->user1;
+                    @endphp
+
+                    <div class="flex items-center gap-2 bg-slate-100 py-4 px-2">
+                        <div class="relative">
+                            <img
+                                src="{{ $chatPartner->profile_photo_url }}"
+                                alt="{{ $chatPartner->name }}"
+                                class="h-12 w-12 rounded-full"
+                            />
+
+                            <div @class([
+                                'absolute bottom-1 right-0 h-2 w-2 rounded-full' => true,
+                                'bg-green-600' => $chatPartner->last_visited_at?->gte(now()->subMinutes(5)),
+                                'bg-red-600' => !$chatPartner->last_visited_at?->gte(now()->subMinutes(5)),
+                            ])>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold text-slate-800">
+                                {{ $chatPartner->name }}
+                            </p>
+
+                            <p class="text-slate-600">
+                                {{ $chatPartner->phone_number }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="mt-6 flex-1 space-y-5 overflow-auto p-2">
+
+                        @foreach ($messages as $message)
+                            @if ($message->user_id == Auth::id())
+                                <li class="flex justify-end">
+                                    <span class="rounded-full bg-primary-400 py-2 px-3 text-slate-100">
+                                        {{ $message->message }}
                                     </span>
-                                </button>
-                            </li>
+                                </li>
+                            @else
+                                <li>
+                                    <span class="rounded-full bg-slate-200 py-2 px-3 text-slate-800">
+                                        {{ $message->message }}
+                                    </span>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
+
+                    <form @submit.prevent="sendMessage">
+                        <div class="flex items-center gap-1 border-t border-r border-slate-200 px-3 py-2 shadow">
+                            <input
+                                x-model.trim="message"
+                                type="text"
+                                class="flex-1 border-none bg-transparent text-slate-800 focus:ring-transparent"
+                                placeholder="{{ __('Type your message here...') }}"
+                            />
+
+                            <button>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="h-6 w-6 text-slate-800"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="flex items-center gap-2 bg-slate-100 py-4 px-2">
-                    <div class="relative">
-                        <img
-                            src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
-                            alt="{{ Auth::user()->name }}"
-                            class="h-12 w-12 rounded-full"
-                        />
-
-                        <div class="absolute bottom-1 right-0 h-2 w-2 rounded-full bg-red-600"></div>
-                    </div>
-
-                    <div>
-                        <p class="font-semibold text-slate-800">
-                            {{ Auth::user()->name }}
-                        </p>
-
-                        <p class="text-slate-600">
-                            {{ Auth::user()->phone_number }}
-                        </p>
-                    </div>
+            @else
+                <div class="mt-36 flex flex-col items-center justify-center">
+                    <span class="px-8 text-center text-slate-600">
+                        {{ __('You have no chat history, please click to "Chat with hosteller" in hostel detail page.') }}
+                    </span>
                 </div>
-
-                <ul class="mt-6 flex-1 p-2">
-                    <li>
-                        <span class="rounded-full bg-slate-200 py-2 px-3 text-slate-800">
-                            Xin chao ban
-                        </span>
-                    </li>
-
-                    <li class="mt-6 flex justify-end">
-                        <span class="rounded-full bg-primary-400 py-2 px-3 text-slate-100">
-                            Ban dang lam gi vay
-                        </span>
-                    </li>
-                </ul>
-
-                <form @submit.prevent="sendMessage">
-                    <div class="flex items-center gap-1 border-t border-r border-slate-200 px-3 py-2 shadow">
-                        <input
-                            x-model.trim="message"
-                            type="text"
-                            class="flex-1 border-none bg-transparent text-slate-800 focus:ring-transparent"
-                            placeholder="{{ __('Type your message here...') }}"
-                        />
-
-                        <button>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-6 w-6 text-slate-800"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            @endif
         @else
             <div class="mt-36 flex flex-col items-center justify-center">
                 <span class="text-slate-600">
@@ -159,16 +188,28 @@
             Alpine.data('chat', () => ({
                 open: true,
                 message: '',
+                justCreatedMessageId: null,
 
-                sendMessage() {
-                    console.log(this.message)
-
-                    this.message = ''
+                init() {
+                    this.updateLastVisitedAt();
+                    console.log(this.$wire.rooms)
+                    setInterval(() => {
+                        this.updateLastVisitedAt();
+                    }, 1000 * 60 * 2)
                 },
 
-                isOverflown(element) {
-                    return element.scrollHeight > element.clientHeight || element.scrollWidth > element
-                        .clientWidth;
+                updateLastVisitedAt() {
+                    this.$wire.updateLastVisitedAt()
+                },
+
+                updateRoomId(roomId) {
+                    this.$wire.updateSelectedRoomId(roomId)
+                },
+
+                async sendMessage() {
+                    this.justCreatedMessageId = await this.$wire.createRoomMessage(this.message)
+
+                    this.message = ''
                 },
             }))
         })

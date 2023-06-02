@@ -89,6 +89,7 @@
 
             {{-- infos & actions --}}
             <div class="col-span-3 space-y-4 rounded-md px-4 py-4 shadow lg:col-span-1">
+                <livewire:hostel.chat-with-hosteller :hosteller="$hostel->owner" />
                 <livewire:hostel.subscribe-for-news :hostel="$hostel" />
 
                 <ul class="space-y-2">
@@ -299,7 +300,7 @@
             </div>
 
             <div class="-mx-2 mt-4 flex flex-wrap">
-                <div class="mb-2 w-full px-2 md:mb-0">
+                <div class="mb-2 flex-1 px-2 md:mb-0">
                     <button
                         class="flex w-full items-center justify-center gap-2 rounded bg-indigo-500 py-2 text-sm text-white transition duration-200 hover:bg-indigo-600"
                         onclick="navigator.clipboard.writeText('{{ $hostel->owner->phone_number }}');"
@@ -321,6 +322,8 @@
                         <span data-config-id="primary-action1">{{ $hostel->owner->phone_number }}</span>
                     </button>
                 </div>
+
+                <livewire:hostel.chat-with-hosteller :hosteller="$hostel->owner" />
             </div>
         </div>
     </div>

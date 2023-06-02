@@ -58,5 +58,13 @@
     "This feature requires a phone number. Please provide one to continue.": "Tính năng này yêu cầu một số điện thoại. Vui lòng cung cấp một số để tiếp tục.",
     "Phone Number": "Số điện thoại",
     "Email verified": "Email đã được xác minh",
-    "Whoops! Something went wrong.": "Rất tiếc! Đã xảy ra lỗi."
+    "Whoops! Something went wrong.": "Rất tiếc! Đã xảy ra lỗi.",
+    "Chat": "Nhắn tin",
+    "Please login to chat": "Vui lòng đăng nhập để nhắn tin",
+    "Login": "Đăng nhập",
+    "Type your message here...": "Nhập tin nhắn của bạn ở đây...",
+    "You have no chat history, please click to \"Chat with hosteller\" in hostel detail page.": "Bạn không có lịch sử trò chuyện, vui lòng nhấp vào \"Nhắn tin với chủ nhà\" trong trang chi tiết nhà trọ.",
+    "Chat with hosteller": "Nhắn tin với chủ nhà",
+    "Login required": "Yêu cầu đăng nhập",
+    "Please login to chat with hosteller.": "Vui lòng đăng nhập để nhắn tin với chủ nhà."
 }
