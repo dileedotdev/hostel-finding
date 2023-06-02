@@ -74,6 +74,10 @@
         </main>
     </div>
 
+    <div class="fixed bottom-3 right-3 z-10">
+        <livewire:chat />
+    </div>
+
     @stack('modals')
     @livewireScripts
     @livewire('notifications')

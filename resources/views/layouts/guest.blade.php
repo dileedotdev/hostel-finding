@@ -60,6 +60,10 @@
         {{ $slot }}
     </div>
 
+    <div class="fixed bottom-3 right-3 z-10">
+        <livewire:chat />
+    </div>
+
     @livewireScripts
     @stack('scripts')
     @livewire('notifications')
