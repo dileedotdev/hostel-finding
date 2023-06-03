@@ -40,6 +40,7 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'id_number',
         'phone_number',
+        'last_visited_at',
     ];
 
     /**
@@ -61,6 +62,7 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_visited_at' => 'datetime',
     ];
 
     /**

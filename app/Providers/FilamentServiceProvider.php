@@ -42,6 +42,15 @@ class FilamentServiceProvider extends ServiceProvider
                     new HtmlString('<meta name="referrer" content="no-referrer" />'),
                 ]);
             }
+
+            Filament::registerRenderHook(
+                'body.end',
+                fn (): string => \Blade::render(<<<'BLADE'
+                        <div class="fixed bottom-3 right-3 z-10">
+                            <livewire:chat />
+                        </div>
+                    BLADE)
+            );
         });
 
         ViewComponent::macro('localizeLabel', function () {

@@ -1,3 +1,4 @@
+import './bootstrap';
 import { useGoogleMaps } from './use-google-maps';
 import { createHtmlMapMarker } from './create-html-map-marker';
 
