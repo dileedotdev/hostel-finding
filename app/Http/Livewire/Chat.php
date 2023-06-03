@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Events\ChatMessageCreated;
 use App\Models\ChatMessage;
 use App\Models\ChatRoom;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Chat extends Component
@@ -70,7 +71,7 @@ class Chat extends Component
         return $message->id;
     }
 
-    public function render()
+    public function render(): View
     {
         if (\Auth::check()) {
             $rooms = ChatRoom::where('user1_id', \Auth::id())

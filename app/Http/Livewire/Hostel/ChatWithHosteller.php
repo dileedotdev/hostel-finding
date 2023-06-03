@@ -7,6 +7,8 @@ namespace App\Http\Livewire\Hostel;
 use App\Events\ChatRoomCreated;
 use App\Models\ChatRoom;
 use App\Models\User;
+use Filament\Notifications\Notification;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ChatWithHosteller extends Component
@@ -21,7 +23,7 @@ class ChatWithHosteller extends Component
     public function chatWithHosteller(): void
     {
         if (! \Auth::check()) {
-            \Notification::make()
+            Notification::make()
                 ->warning()
                 ->title(__('Login required'))
                 ->body(__('Please login to chat with hosteller.'))
@@ -42,7 +44,7 @@ class ChatWithHosteller extends Component
         ChatRoomCreated::dispatch($room);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.hostel.chat-with-hosteller');
     }
