@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Events\ChatMessageCreated;
 use App\Models\ChatMessage;
 use App\Models\ChatRoom;
 use Livewire\Component;
 
 class Chat extends Component
 {
+    public ?int $userId = null;
     public ?int $selectedRoomId = null;
 
     public function mount(): void
     {
+        $this->userId = \Auth::id();
     }
 
     public function updateLastVisitedAt(): void
@@ -59,6 +62,8 @@ class Chat extends Component
         $room->update([
             'updated_at' => now(),
         ]);
+
+        ChatMessageCreated::dispatch($message);
 
         $this->skipRender();
 

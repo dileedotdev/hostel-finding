@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Hostel;
 
+use App\Events\ChatRoomCreated;
 use App\Models\ChatRoom;
 use App\Models\User;
 use Livewire\Component;
@@ -33,10 +34,12 @@ class ChatWithHosteller extends Component
         $user1Id = \Auth::id() < $this->hosteller->id ? \Auth::id() : $this->hosteller->id;
         $user2Id = \Auth::id() > $this->hosteller->id ? \Auth::id() : $this->hosteller->id;
 
-        ChatRoom::firstOrCreate([
+        $room = ChatRoom::firstOrCreate([
             'user1_id' => $user1Id,
             'user2_id' => $user2Id,
         ]);
+
+        ChatRoomCreated::dispatch($room);
     }
 
     public function render()

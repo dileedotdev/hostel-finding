@@ -60,7 +60,7 @@
         {{ $slot }}
     </div>
 
-    <div class="fixed bottom-3 right-3 z-10">
+    <div class="fixed bottom-3 right-3 z-50">
         <livewire:chat />
     </div>
 

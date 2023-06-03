@@ -4,7 +4,7 @@
 >
 
     @php
-        $height = 'h-[700px]';
+        $height = 'h-[460px]';
     @endphp
     <div
         x-show="open"
@@ -88,7 +88,10 @@
                         </div>
                     </div>
 
-                    <ul class="mt-6 flex-1 space-y-5 overflow-auto p-2">
+                    <ul
+                        x-ref="messageList"
+                        class="mt-6 flex-1 space-y-5 overflow-auto p-2"
+                    >
 
                         @foreach ($messages as $message)
                             @if ($message->user_id == Auth::id())
@@ -105,6 +108,19 @@
                                 </li>
                             @endif
                         @endforeach
+
+                        <template x-for="message in newMessages">
+                            <li :class="{ 'flex justify-end': message.user_id == {{ Auth::id() }} }">
+                                <span
+                                    class="rounded-full py-2 px-3"
+                                    :class="{
+                                        'bg-slate-200 text-slate-800': message.user_id != {{ Auth::id() }},
+                                        'bg-primary-400 text-slate-100': message.user_id == {{ Auth::id() }},
+                                    }"
+                                    x-text="message.message"
+                                ></span>
+                            </li>
+                        </template>
                     </ul>
 
                     <form @submit.prevent="sendMessage">
@@ -160,8 +176,8 @@
 
     <button
         type="button"
-        class="flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 shadow"
-        @click="open = !open"
+        class="relative flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 shadow"
+        @click="openChat"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -181,14 +197,24 @@
         <span class="font-semibold text-slate-800">
             {{ __('Chat') }}
         </span>
+
+        <div
+            x-show="newMessageShouldRead"
+            x-cloak
+            class="absolute -top-1 right-0 h-3 w-3 rounded-full bg-red-500"
+        >
+
+        </div>
     </button>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('chat', () => ({
-                open: true,
+                open: false,
                 message: '',
-                justCreatedMessageId: null,
+                justCreatedMessage: false,
+                newMessageShouldRead: false,
+                newMessages: [],
 
                 init() {
                     this.updateLastVisitedAt();
@@ -196,18 +222,90 @@
                     setInterval(() => {
                         this.updateLastVisitedAt();
                     }, 1000 * 60 * 2)
+
+                    this.handleEchoMessages();
+                    this.handleEchoChatRooms();
+
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
                 },
 
                 updateLastVisitedAt() {
                     this.$wire.updateLastVisitedAt()
                 },
 
-                updateRoomId(roomId) {
-                    this.$wire.updateSelectedRoomId(roomId)
+                handleEchoMessages() {
+                    const userId = this.$wire.userId;
+
+                    if (!userId) return;
+
+                    window.Echo.private(`App.Models.User.${userId}`)
+                        .listen('ChatMessageCreated', (e) => {
+                            if (!this.open) {
+                                this.newMessageShouldRead = true;
+                            }
+
+                            const chatMessage = e.chatMessage;
+                            if (
+                                chatMessage.user_id != {{ \Auth::id() ?? 0 }} &&
+                                chatMessage.chat_room_id == this.$wire.selectedRoomId
+                            ) {
+
+                                this.newMessages.push(chatMessage);
+                                this.$nextTick(() => {
+                                    this.scrollToBottom();
+                                });
+                            }
+                        });
                 },
 
-                async sendMessage() {
-                    this.justCreatedMessageId = await this.$wire.createRoomMessage(this.message)
+                handleEchoChatRooms() {
+                    const userId = this.$wire.userId;
+
+                    if (!userId) return;
+
+                    window.Echo.private(`App.Models.User.${userId}`)
+                        .listen('ChatRoomCreated', (e) => {
+                            this.updateRoomId(e.chatRoom.id);
+                        });
+                },
+
+                async updateRoomId(roomId) {
+                    this.newMessages = [];
+                    await this.$wire.updateSelectedRoomId(roomId)
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
+                },
+
+                scrollToBottom() {
+                    const messageList = this.$refs.messageList;
+                    if (messageList) {
+                        messageList.scrollTop = messageList.scrollHeight;
+                    }
+                },
+
+                openChat() {
+                    this.open = !this.open;
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
+
+                    this.newMessageShouldRead = false;
+                },
+
+                sendMessage() {
+                    this.newMessages.push({
+                        message: this.message,
+                        user_id: {{ \Auth::id() ?? 0 }},
+                    });
+
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                    });
+
+                    this.$wire.createRoomMessage(this.message)
 
                     this.message = ''
                 },
