@@ -268,6 +268,7 @@
                     window.Echo.private(`App.Models.User.${userId}`)
                         .listen('ChatRoomCreated', (e) => {
                             this.updateRoomId(e.chatRoom.id);
+                            this.openChat();
                         });
                 },
 
